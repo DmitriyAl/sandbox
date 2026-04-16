@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class KafkaProducerExample {
-    private static final String TOPIC_NAME = "my-topic";
+    private static final String TOPIC_NAME = "test-topic";
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
 
     public static void main(String[] args) {

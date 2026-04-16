@@ -1,5 +1,5 @@
-# my-values.yaml
-# Включаем режим KRaft
+## my-values.yaml
+## Включаем режим KRaft
 kraft:
   enabled: true
 
@@ -10,7 +10,7 @@ controller:
 
 # НАСТРОЙКА БРОКЕРОВ
 broker:
-  replicaCount: 3      # Добавляем 3 брокера
+  replicaCount: 4      # Добавляем 3 брокера
   persistence:
     size: 10Gi         # Размер диска для данных
 
@@ -32,3 +32,12 @@ provisioning:
       replicationFactor: 3
       config:
         retention.bytes: "1073741824" # Хранить до 1GB
+#
+#externalAccess:
+#  enabled: true
+#  broker:
+#    service:
+#      type: LoadBalancer
+#      ports:
+#        external: 9094
+#      domain: "localhost"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-producer-service
+  namespace: default
+  labels:
+    monitoring: "true"  # <-- Критически важно для ServiceMonitor
+spec:
+  selector:
+    app: kafka-producer
+  ports:
+    - name: metrics-port  # <-- Имя порта должно совпадать с ServiceMonitor
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,0 +1,13 @@
+global:
+  env: dev
+
+docker:
+  repository: localhost:5000
+
+demo:
+  image:
+    name: kafka-producer
+    tag: 0.1
+
+prometheusOperator:
+  enabled: true

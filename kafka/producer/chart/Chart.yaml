@@ -1,0 +1,13 @@
+apiVersion: v2
+name: demo
+description: A Helm chart for Kubernetes that deploys microservices with sidecars, PostgreSQL and frontend
+type: application
+
+# Версия самого чарта (не приложения!)
+version: 1.0.0
+
+# Версия приложения, которое разворачивает чарт
+appVersion: 0.1-SNAPSHOT
+
+# Поддерживаемые версии Kubernetes (опционально)
+kubeVersion: ">=1.19.0-0"

@@ -12,7 +12,7 @@
     <artifactId>kafka</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>helm</module>
+        <module>producer</module>
     </modules>
 
     <properties>
