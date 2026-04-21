@@ -27,3 +27,20 @@ logging:
   level:
     org.springframework.kafka: DEBUG
     org.apache.kafka: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metrics
+      base-path: /actuator  # ?? ?????????, ?? ????? ??????? ????
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    prometheus:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
