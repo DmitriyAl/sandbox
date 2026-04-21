@@ -1,18 +1,18 @@
 set CONSUMER_VER=0.5
-set PRODUCER_VER=0.4
+set PRODUCER_VER=0.5
 echo %CONSUMER_VER%
 echo %PRODUCER_VER%
 
-cd consumer
-
-docker build -t kafka-consumer:%CONSUMER_VER% .
-minikube image load kafka-consumer:%CONSUMER_VER%
-
-cd chart
-
-helm upgrade my-kafka-consumer .
-
-cd ../..
+@REM cd consumer
+@REM
+@REM docker build -t kafka-consumer:%CONSUMER_VER% .
+@REM minikube image load kafka-consumer:%CONSUMER_VER%
+@REM
+@REM cd chart
+@REM
+@REM helm upgrade my-kafka-consumer .
+@REM
+@REM cd ../..
 
 cd producer
 

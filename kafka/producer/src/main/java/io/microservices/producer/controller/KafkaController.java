@@ -14,6 +14,6 @@ public class KafkaController {
 
     @PostMapping("/message")
     public void sendMessage(@RequestParam("message") String message) {
-        producerService.sendMessage("test-topic", "Hello, secure Kafka!");
+        producerService.sendMessage("test-topic", String.format("Message: %s", message));
     }
 }
