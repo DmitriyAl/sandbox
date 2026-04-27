@@ -22,7 +22,7 @@ provisioning:
   topics:
     # Список топиков, которые будут созданы автоматически
     - name: "test-topic"
-      partitions: 3
+      partitions: 30
       replicationFactor: 3
       config:
         retention.ms: "86400000" # Хранить сообщения 1 день (в миллисекундах)

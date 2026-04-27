@@ -19,6 +19,6 @@ spec:
     - port: metrics-port  # Используем имя порта из Service
       scheme: http
       path: /actuator/prometheus  # Spring Boot default path
-      interval: 30s
-      scrapeTimeout: 10s
+      interval: 5s
+      scrapeTimeout: 3s
 {{/*{{- end }}*/}}
