@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Service
 @Slf4j
 public class KafkaProducerService {
@@ -25,6 +28,12 @@ public class KafkaProducerService {
                 .register(meterRegistry);
     }
 
+    public void sendMessageSynchronously(String topic, int amount) {
+        for (int i = 0; i < amount; i++) {
+            sendMessage(topic, String.format("Message: %d", i));
+        }
+    }
+
     public void sendMessage(String topic, String message) {
         log.info("Sending message to topic {}: {}", topic, message);
         kafkaTemplate.send(topic, message)
@@ -37,5 +46,13 @@ public class KafkaProducerService {
                         failureCounter.increment();
                     }
                 });
+    }
+
+    public void sendMessageAsynchronously(String topic, int amount, int threads) {
+        ExecutorService executorService = Executors.newFixedThreadPool(threads);
+        for (int i = 0; i < amount; i++) {
+            int step = i;
+            executorService.execute(() -> sendMessage(topic, String.format("Message: %d", step)));
+        }
     }
 }
