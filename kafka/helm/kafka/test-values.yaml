@@ -37,7 +37,7 @@ common:
     preset: "medium"
 listeners:
   client:
-    protocol: PLAINTEXT
+    protocol: SASL_PLAINTEXT
     containerPort: 9092
     name: CLIENT
   controller:
