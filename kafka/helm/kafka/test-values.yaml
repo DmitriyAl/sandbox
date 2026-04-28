@@ -17,12 +17,12 @@ broker:
 # АВТОМАТИЧЕСКОЕ СОЗДАНИЕ ТОПИКОВ (provisioning)
 provisioning:
   enabled: true
-  numPartitions: 3     # Количество партиций по умолчанию для новых топиков
+#  numPartitions: 12     # Количество партиций по умолчанию для новых топиков
   replicationFactor: 3 # Фактор репликации (должен быть <= кол-ва брокеров)
   topics:
     # Список топиков, которые будут созданы автоматически
     - name: "test-topic"
-      partitions: 30
+      partitions: 12
       replicationFactor: 3
       config:
         retention.ms: "86400000" # Хранить сообщения 1 день (в миллисекундах)
@@ -35,3 +35,22 @@ provisioning:
 common:
   resources:
     preset: "medium"
+listeners:
+  client:
+    protocol: PLAINTEXT
+    containerPort: 9092
+    name: CLIENT
+  controller:
+    protocol: PLAINTEXT
+    containerPort: 9093
+    name: CONTROLLER
+  interbroker:
+    protocol: PLAINTEXT
+    containerPort: 9094
+    name: INTERNAL
+
+# Настройка для доступа из клиентов (ваших Spring Boot приложений) внутри кластера
+service:
+  type: ClusterIP
+  ports:
+    client: 9092
