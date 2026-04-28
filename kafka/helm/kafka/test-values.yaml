@@ -1,3 +1,7 @@
+global:
+  security:
+    allowInsecureImages: true
+
 ## my-values.yaml
 ## Включаем режим KRaft
 kraft:
@@ -17,7 +21,7 @@ broker:
 # АВТОМАТИЧЕСКОЕ СОЗДАНИЕ ТОПИКОВ (provisioning)
 provisioning:
   enabled: true
-#  numPartitions: 12     # Количество партиций по умолчанию для новых топиков
+  numPartitions: 24     # Количество партиций по умолчанию для новых топиков
   replicationFactor: 3 # Фактор репликации (должен быть <= кол-ва брокеров)
   topics:
     # Список топиков, которые будут созданы автоматически
