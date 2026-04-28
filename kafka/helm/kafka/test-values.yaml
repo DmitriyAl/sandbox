@@ -11,10 +11,24 @@ kraft:
 controller:
   replicaCount: 3
   controllerOnly: true # Указывает, что эти поды будут только контроллерами
+  resources:
+    requests:
+      cpu: 1000m            # 1 ядро
+      memory: 2Gi           # 4 Гигабайта (брокерам нужно больше, чем контроллерам)
+    limits:
+      cpu: 2000m            # 2 ядра
+      memory: 4Gi           # 8 Гигабайт
 
 # НАСТРОЙКА БРОКЕРОВ
 broker:
-  replicaCount: 4      # Добавляем 3 брокера
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 1000m            # 1 ядро
+      memory: 2Gi           # 4 Гигабайта (брокерам нужно больше, чем контроллерам)
+    limits:
+      cpu: 2000m            # 2 ядра
+      memory: 4Gi           # 8 Гигабайт
   persistence:
     size: 10Gi         # Размер диска для данных
 
@@ -36,9 +50,9 @@ provisioning:
       replicationFactor: 3
       config:
         retention.bytes: "1073741824" # Хранить до 1GB
-common:
-  resources:
-    preset: "large"
+#common:
+#  resources:
+#    preset: "large"
 listeners:
   client:
     protocol: SASL_PLAINTEXT

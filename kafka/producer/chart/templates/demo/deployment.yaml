@@ -21,9 +21,9 @@ spec:
             requests:
               memory: "256Mi"   # Просим 256 мегабайт памяти
               cpu: "200m"       # Просим 200 миллипроцессоров (0.2 ядра)
-            limits:
-              memory: "1024Mi"   # Ограничиваем 512 мегабайтами (жесткое ограничение)
-              cpu: "500m"
+{{/*            limits:*/}}
+{{/*              memory: "1024Mi"   # Ограничиваем 512 мегабайтами (жесткое ограничение)*/}}
+{{/*              cpu: "500m"*/}}
           env:
             - name: DB_HOST
               value: "demo-postgresql.default.svc.cluster.local"
