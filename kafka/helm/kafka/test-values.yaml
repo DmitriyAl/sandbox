@@ -34,7 +34,7 @@ provisioning:
         retention.bytes: "1073741824" # Хранить до 1GB
 common:
   resources:
-    preset: "medium"
+    preset: "large"
 listeners:
   client:
     protocol: SASL_PLAINTEXT
