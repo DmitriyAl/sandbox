@@ -48,7 +48,12 @@ listeners:
     protocol: PLAINTEXT
     containerPort: 9094
     name: INTERNAL
-
+sasl:
+  client:
+    users:
+      - user
+    passwords:
+      - test
 # Настройка для доступа из клиентов (ваших Spring Boot приложений) внутри кластера
 service:
   type: ClusterIP
