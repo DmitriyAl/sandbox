@@ -32,12 +32,6 @@ provisioning:
       replicationFactor: 3
       config:
         retention.bytes: "1073741824" # Хранить до 1GB
-#
-#externalAccess:
-#  enabled: true
-#  broker:
-#    service:
-#      type: LoadBalancer
-#      ports:
-#        external: 9094
-#      domain: "localhost"
+common:
+  resources:
+    preset: "medium"
