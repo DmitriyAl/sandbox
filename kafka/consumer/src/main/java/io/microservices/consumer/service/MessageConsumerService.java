@@ -8,6 +8,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class MessageConsumerService {
@@ -28,7 +30,7 @@ public class MessageConsumerService {
     /**
      * Слушатель для топика test-topic
      *
-     * @param record полученное сообщение
+     * @param record         полученное сообщение
      * @param acknowledgment объект для ручного подтверждения
      */
     @KafkaListener(
@@ -36,31 +38,34 @@ public class MessageConsumerService {
             groupId = "my-consumer-group",
             containerFactory = "kafkaListenerContainerFactory"
     )
-    public void consume(ConsumerRecord<String, String> record, Acknowledgment acknowledgment) {
-        log.info("=".repeat(60));
-        log.info("📨 Получено сообщение:");
-        log.info("   Топик: {}", record.topic());
-        log.info("   Партиция: {}", record.partition());
-        log.info("   Offset: {}", record.offset());
-        log.info("   Ключ: {}", record.key());
-        log.info("   Значение: {}", record.value());
-        log.info("   Timestamp: {}", record.timestamp());
-        log.info("=".repeat(60));
+    public void consume(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
+        for (ConsumerRecord<String, String> record : records) {
 
-        try {
-            // Здесь ваша бизнес-логика обработки сообщения
-            processMessage(record.value());
+            log.info("=".repeat(60));
+            log.info("📨 Получено сообщение:");
+            log.info("   Топик: {}", record.topic());
+            log.info("   Партиция: {}", record.partition());
+            log.info("   Offset: {}", record.offset());
+            log.info("   Ключ: {}", record.key());
+            log.info("   Значение: {}", record.value());
+            log.info("   Timestamp: {}", record.timestamp());
+            log.info("=".repeat(60));
 
-            // Ручное подтверждение успешной обработки
-            acknowledgment.acknowledge();
-            log.info("✅ Сообщение успешно обработано и подтверждено");
-            succesCounter.increment();
-        } catch (Exception e) {
-            log.error("❌ Ошибка при обработке сообщения: {}", e.getMessage(), e);
-            failureCounter.increment();
-            // В зависимости от требований: можно не подтверждать (сообщение будет перечитано)
-            // или сохранить в DLQ (Dead Letter Queue)
+            try {
+                // Здесь ваша бизнес-логика обработки сообщения
+                processMessage(record.value());
+
+                // Ручное подтверждение успешной обработки
+                log.info("✅ Сообщение успешно обработано и подтверждено");
+                succesCounter.increment();
+            } catch (Exception e) {
+                log.error("❌ Ошибка при обработке сообщения: {}", e.getMessage(), e);
+                failureCounter.increment();
+                // В зависимости от требований: можно не подтверждать (сообщение будет перечитано)
+                // или сохранить в DLQ (Dead Letter Queue)
+            }
         }
+        acknowledgment.acknowledge();
     }
 
     /**
