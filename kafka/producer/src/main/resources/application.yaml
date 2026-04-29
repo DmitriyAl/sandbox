@@ -6,7 +6,6 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      compression-type: snappy  # Включите сжатие
       batch-size: 16384  # 16KB - размер батча
       linger-ms: 5  # Накопление сообщений для батча
       buffer-memory: 33554432  # 32MB буфер
