@@ -1,0 +1,1 @@
+helm install my-kafka-release ./helm/kafka -f ./helm/kafka/test-values.yaml
