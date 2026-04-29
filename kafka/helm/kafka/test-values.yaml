@@ -36,7 +36,7 @@ broker:
 provisioning:
   enabled: true
   numPartitions: 24     # Количество партиций по умолчанию для новых топиков
-  replicationFactor: 3 # Фактор репликации (должен быть <= кол-ва брокеров)
+  replicationFactor: 2 # Фактор репликации (должен быть <= кол-ва брокеров)
   topics:
     # Список топиков, которые будут созданы автоматически
     - name: "test-topic"

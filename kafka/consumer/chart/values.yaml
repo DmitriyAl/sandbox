@@ -7,7 +7,7 @@ docker:
 demo:
   image:
     name: kafka-consumer
-    tag: 0.5
+    tag: 0.6
 
 prometheusOperator:
   enabled: true
