@@ -59,4 +59,15 @@ public class KafkaConsumerConfig {
 //        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
 //        return factory;
 //    }
+
+    // Фабрика для пакетной обработки
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> batchKafkaListenerContainerFactory(
+            ConsumerFactory<String, String> consumerFactory) {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory);
+        factory.setBatchListener(true); // Включаем пакетный режим
+        return factory;
+    }
 }

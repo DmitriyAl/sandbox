@@ -36,9 +36,9 @@ public class MessageConsumerService {
     @KafkaListener(
             topics = {"test-topic", "my-app-logs"},  // Слушаем оба топика
             groupId = "my-consumer-group",
-            containerFactory = "kafkaListenerContainerFactory"
+            containerFactory = "batchKafkaListenerContainerFactory"
     )
-    public void consume(List<ConsumerRecord<String, String>> records, Acknowledgment acknowledgment) {
+    public void consume(List<ConsumerRecord<String, String>> records) {
         for (ConsumerRecord<String, String> record : records) {
 
             log.info("=".repeat(60));
@@ -65,22 +65,20 @@ public class MessageConsumerService {
                 // или сохранить в DLQ (Dead Letter Queue)
             }
         }
-        acknowledgment.acknowledge();
     }
 
-    /**
-     * Альтернативный слушатель с автоматической конвертацией в JSON
-     */
-    @KafkaListener(
-            topics = "test-topic",
-            groupId = "json-consumer-group",
-            containerFactory = "kafkaListenerContainerFactory"
-    )
-    public void consumeJson(String message, Acknowledgment acknowledgment) {
-        log.info("📝 JSON сообщение: {}", message);
-        // Здесь можно использовать ObjectMapper для парсинга
-        acknowledgment.acknowledge();
-    }
+//    /**
+//     * Альтернативный слушатель с автоматической конвертацией в JSON
+//     */
+//    @KafkaListener(
+//            topics = "test-topic",
+//            groupId = "json-consumer-group",
+//            containerFactory = "kafkaListenerContainerFactory"
+//    )
+//    public void consumeJson(String message) {
+//        log.info("📝 JSON сообщение: {}", message);
+//        // Здесь можно использовать ObjectMapper для парсинга
+//    }
 
     private void processMessage(String message) {
         // Имитация бизнес-логики
