@@ -5,8 +5,8 @@ echo %PRODUCER_VER%
 
 cd consumer
 @REM
-docker build -t kafka-consumer:%CONSUMER_VER% .
-minikube image load kafka-consumer:%CONSUMER_VER%
+@REM docker build -t kafka-consumer:%CONSUMER_VER% .
+@REM minikube image load kafka-consumer:%CONSUMER_VER%
 @REM
 cd chart
 

@@ -6,6 +6,8 @@ metadata:
   labels:
     monitoring: "true"  # <-- Критически важно для ServiceMonitor
 spec:
+  type: NodePort          # Меняем с ClusterIP на LoadBalancer
+  externalTrafficPolicy: Cluster  # Оставляем Cluster для балансировки
   selector:
     app: {{ .Values.demo.image.name }}
   ports:
@@ -13,3 +15,4 @@ spec:
       protocol: TCP
       port: 8080
       targetPort: 8080
+      nodePort: 30080

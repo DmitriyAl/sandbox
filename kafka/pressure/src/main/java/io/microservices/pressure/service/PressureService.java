@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 @Slf4j
 public class PressureService {
-    private static final String TARGET_URL = "http://localhost:18081";
+    private static final String TARGET_URL = "http://127.0.0.1:56846";
     private final WebClient webClient;
 
     public PressureService() {
@@ -17,20 +17,20 @@ public class PressureService {
                 .build();
     }
 
-    public void sendMessages(int amount) {
-        for (int i = 0; i < amount; i++) {
-            int param = i;
+    public void sendMessages(int batches, int amount, int threads) {
+        for (int i = 0; i < batches; i++) {
             webClient.post()
                     .uri(uriBuilder -> uriBuilder
-                            .path("/message")
-                            .queryParam("message", param)
+                            .path("/async-pressure")
+                            .queryParam("amount", amount)
+                            .queryParam("threads", threads)
                             .build()) // пустая строка, так как baseUrl уже задан
                     .retrieve()
                     .bodyToMono(Object.class)
-                    .doOnSuccess(response -> log.info("Request {} success", param))
-                    .doOnError(error -> log.error("Request {} failed", param, error))
+                    .doOnSuccess(response -> log.info("Request on {} messages bu {} threads successfully done", amount, threads))
+                    .doOnError(error -> log.error("Request on {} messages bu {} threads failed", amount, threads, error))
                     .subscribe();
-        }
         log.info("{} messages were sent", amount);
+        }
     }
 }

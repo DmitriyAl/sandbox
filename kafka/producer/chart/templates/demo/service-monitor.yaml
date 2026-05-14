@@ -9,6 +9,7 @@ metadata:
     release: kube-prometheus-stack  # Обычно по умолчанию
     app: kube-prometheus-stack-prometheus
 spec:
+  scrapeInterval: 5s
   selector:
     matchLabels:
       monitoring: "true"  # Ищем Service с этой меткой

@@ -1,0 +1,1 @@
+minikube service kafka-producer-service

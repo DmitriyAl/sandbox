@@ -13,8 +13,8 @@ public class PressureController {
     private final PressureService pressureService;
 
     @PostMapping("pressure")
-    public ResponseEntity<?> sendMessages(@RequestParam int amount) {
-        pressureService.sendMessages(amount);
+    public ResponseEntity<?> sendMessages(@RequestParam("batches") int batches, @RequestParam("amount") int amount, @RequestParam("threads") int threads) {
+        pressureService.sendMessages(batches, amount, threads);
         return ResponseEntity.ok().build();
     }
 }
