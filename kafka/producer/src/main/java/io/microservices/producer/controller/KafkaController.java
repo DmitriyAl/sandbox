@@ -24,7 +24,7 @@ public class KafkaController {
     }
 
     @PostMapping("/async-pressure")
-    public void addAsyncPressure(@RequestParam("amount") int amount, @RequestParam("threads") int threads) {
-        producerService.sendMessageAsynchronously(TOPIC, amount, threads);
+    public void addAsyncPressure(@RequestParam("amount") int amount, @RequestParam("threads") int threads, @RequestParam("delay") int delay) {
+        producerService.sendMessageAsynchronously(TOPIC, amount, threads, delay);
     }
 }

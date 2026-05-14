@@ -17,13 +17,14 @@ public class PressureService {
                 .build();
     }
 
-    public void sendMessages(int batches, int amount, int threads) {
+    public void sendMessages(int batches, int amount, int threads, int delay) {
         for (int i = 0; i < batches; i++) {
             webClient.post()
                     .uri(uriBuilder -> uriBuilder
                             .path("/async-pressure")
                             .queryParam("amount", amount)
                             .queryParam("threads", threads)
+                            .queryParam("delay", delay)
                             .build()) // пустая строка, так как baseUrl уже задан
                     .retrieve()
                     .bodyToMono(Object.class)

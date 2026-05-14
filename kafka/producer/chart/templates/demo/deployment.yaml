@@ -40,5 +40,7 @@ spec:
                   key: postgres-password
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
               value: my-kafka-release:9092
+            - name: SPRING_KAFKA_PRODUCER_BUFFER_MEMORY
+              value: '134217728'
             - name: SPRING_KAFKA_PROPERTIES_SASL_JAAS_CONFIG
               value: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="test";

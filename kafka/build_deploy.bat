@@ -1,5 +1,5 @@
 set CONSUMER_VER=0.14
-set PRODUCER_VER=0.13
+set PRODUCER_VER=0.14
 echo %CONSUMER_VER%
 echo %PRODUCER_VER%
 
@@ -16,8 +16,8 @@ cd ../..
 @REM
 cd producer
 @REM
-@REM docker build -t kafka-producer:%PRODUCER_VER% .
-@REM minikube image load kafka-producer:%PRODUCER_VER%
+docker build -t kafka-producer:%PRODUCER_VER% .
+minikube image load kafka-producer:%PRODUCER_VER%
 @REM
 cd chart
 @REM
