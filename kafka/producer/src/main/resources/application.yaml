@@ -8,8 +8,10 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       batch-size: 16384  # 16KB - размер батча
       linger-ms: 5  # Накопление сообщений для батча
-      buffer-memory: 33554432  # 32MB буфер
+      buffer-memory: 134217728  # 128MB буфер
+      max-block-ms: 60000        # 60 секунд ожидания при заполнении буфера
     properties:
+      delivery.timeout.ms: 120000  # 2 минуты на всю доставку
       security.protocol: SASL_PLAINTEXT
       sasl.mechanism: PLAIN
       sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user1" password="hOKPRLqhHH";
