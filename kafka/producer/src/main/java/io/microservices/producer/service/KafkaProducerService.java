@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @Slf4j
@@ -16,6 +17,7 @@ public class KafkaProducerService {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Counter succesCounter;
     private final Counter failureCounter;
+    private final AtomicInteger limiter = new AtomicInteger();
 
     public KafkaProducerService(KafkaTemplate<String, String> kafkaTemplate, MeterRegistry meterRegistry) {
         this.kafkaTemplate = kafkaTemplate;
@@ -37,6 +39,7 @@ public class KafkaProducerService {
 
     public void sendMessage(String topic, String message) {
         log.info("Sending message to topic {}: {}", topic, message);
+        limiter.incrementAndGet();
         kafkaTemplate.send(topic, message)
                 .whenComplete((result, ex) -> {
                     if (ex == null) {
@@ -46,12 +49,16 @@ public class KafkaProducerService {
                         log.error("Failed to send message to topic {}", topic, ex);
                         failureCounter.increment();
                     }
+                    limiter.decrementAndGet();
                 });
     }
 
     public void sendMessageAsynchronously(String topic, int amount, int threads, int delay) {
         ExecutorService executorService = Executors.newFixedThreadPool(threads);
         for (int i = 0; i < amount; i++) {
+            while (limiter.get() > threads) {
+
+            }
             int step = i;
             executorService.execute(() -> sendMessage(topic, String.format("Message: %d", step)));
             if (delay > 0) {
@@ -62,5 +69,6 @@ public class KafkaProducerService {
                 }
             }
         }
+        executorService.shutdown();
     }
 }

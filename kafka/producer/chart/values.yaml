@@ -7,7 +7,7 @@ docker:
 demo:
   image:
     name: kafka-producer
-    tag: 0.14
+    tag: 0.17
 
 prometheusOperator:
   enabled: true
