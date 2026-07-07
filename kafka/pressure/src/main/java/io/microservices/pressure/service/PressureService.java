@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 @Slf4j
 public class PressureService {
-    private static final String TARGET_URL = "http://127.0.0.1:52091";
+    private static final String TARGET_URL = "http://127.0.0.1:56175";
     private final WebClient webClient;
 
     public PressureService() {
