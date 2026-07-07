@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: pressure
+#logging:
+#  structured:
+#    format:
+#      console: ecs  # ??? logstash

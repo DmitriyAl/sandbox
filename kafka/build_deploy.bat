@@ -1,5 +1,5 @@
-set CONSUMER_VER=0.14
-set PRODUCER_VER=0.17
+set CONSUMER_VER=0.15
+set PRODUCER_VER=0.18
 echo %CONSUMER_VER%
 echo %PRODUCER_VER%
 
@@ -13,14 +13,14 @@ cd chart
 helm upgrade my-kafka-consumer .
 
 cd ../..
-@REM
+
 cd producer
 @REM
-docker build -t kafka-producer:%PRODUCER_VER% .
-minikube image load kafka-producer:%PRODUCER_VER%
+@REM docker build -t kafka-producer:%PRODUCER_VER% .
+@REM minikube image load kafka-producer:%PRODUCER_VER%
 @REM
 cd chart
-@REM
+
 helm upgrade my-kafka-producer .
-@REM
+
 cd ../..
