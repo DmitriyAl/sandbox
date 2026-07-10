@@ -1,10 +1,28 @@
-# values.yaml (только добавление inputs)
-filebeatInputs:
-  - type: log
-    enabled: true
-    paths:
-      - /var/log/containers/*.log
-    json.keys_under_root: true
-    json.overwrite_keys: true
-    json.add_error_key: true
-    json.message_key: "message"
+autodiscover:
+  enabled: false
+
+filebeatConfig:
+  filebeat.yml: |
+    filebeat.inputs:
+      - type: log
+        enabled: true
+        paths:
+          - /var/log/containers/*.log
+        json.keys_under_root: true
+        json.overwrite_keys: true
+        json.add_error_key: true
+        json.message_key: "message"
+        processors:
+          - add_kubernetes_metadata:
+              host: ${NODE_NAME}
+              matchers:
+                - logs_path:
+                    logs_path: "/var/log/containers/"
+
+    output.elasticsearch:
+      hosts: ['https://elasticsearch-master:9200']   # <--- меняем протокол на https
+      username: ${ELASTICSEARCH_USERNAME}
+      password: ${ELASTICSEARCH_PASSWORD}
+      ssl.verification_mode: none                    # <--- для самоподписанных сертификатов (не для продакшена!)
+      # Если у вас есть CA-сертификат, используйте:
+      # ssl.certificate_authorities: ["/path/to/ca.crt"]
