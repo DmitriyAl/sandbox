@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: source-app
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+  expiration-ms: 86400000   # 24 ????
+
+legacy:
+  system-b:
+    base-url: http://localhost:8081
+    api-key: ${LEGACY_API_KEY:secret-api-key}
+    allowed-redirect-prefixes:
+      - /old/orders
+      - /old/profile
+      - /old/reports
