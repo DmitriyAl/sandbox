@@ -1,4 +1,4 @@
-package io.microservices.exchangetoken.sourceapp.config;
+package io.microservices.exchangetoken.sourceapp.controller;
 
 import io.microservices.exchangetoken.sourceapp.dto.LoginRequest;
 import io.microservices.exchangetoken.sourceapp.dto.LoginResponse;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static io.microservices.exchangetoken.sourceapp.constant.Constants.DEMO_PASSWORD_HASH;
+import static io.microservices.exchangetoken.sourceapp.constant.Constants.DEMO_USER;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -21,10 +24,6 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
-
-    // Фиктивный "пользователь" – в реальности запрос к БД
-    private static final String DEMO_USER = "admin";
-    private static final String DEMO_PASSWORD_HASH = "$2a$10$NtU2Nrvz5pKi8KjHepTsjeg/3d1whcFpe74cGecIKjgiXTPXUeSqi"; // пароль "password"
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {

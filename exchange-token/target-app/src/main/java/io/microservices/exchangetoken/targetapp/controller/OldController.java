@@ -9,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("old")
+@RequestMapping("api/old")
 public class OldController {
 
     @GetMapping("orders")

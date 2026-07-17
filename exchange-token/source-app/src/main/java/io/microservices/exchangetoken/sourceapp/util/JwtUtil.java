@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,13 @@ public class JwtUtil {
     private String secretString;
 
     @Value("${jwt.expiration-ms:86400000}") // 24 часа
+    @Getter
     private long expirationMs;
 
     private Key key;
 
     @PostConstruct
     public void initKey() {
-        // Используем HS256 с ключом длиной >= 256 бит (32 байта)
         this.key = Keys.hmacShaKeyFor(secretString.getBytes());
     }
 

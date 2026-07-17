@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -21,13 +18,11 @@ public class BridgeController {
 
     private final BridgeService bridgeService;
 
-    @PostMapping("/redirect")
-    public ResponseEntity<Void> redirectToLegacy(@Valid @RequestBody RedirectRequest request) {
-        // Получаем полный URL для редиректа (уже содержащий одноразовый токен)
-        String redirectUrl = bridgeService.buildRedirectUrl(request.getTarget());
-        // Возвращаем 302 Found с заголовком Location
+    @GetMapping("/redirect")
+    public ResponseEntity<Void> redirectToLegacy(@RequestParam("target") String target) {
+        String redirectUrl = bridgeService.buildRedirectUrl(target);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(redirectUrl));
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(headers, HttpStatus.FOUND); // 302
     }
 }
